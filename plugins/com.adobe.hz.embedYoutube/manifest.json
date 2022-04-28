@@ -1,0 +1,10 @@
+{
+    "name": "Embed Youtube",
+    "id": "com.adobe.hz.embedYoutube",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "widget"
+}

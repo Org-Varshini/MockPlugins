@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8" />
+		<meta name="viewport" content="width=device-width" />
+        <script src="https://localhost.adobe.com:8081/static/index.03e2775944136b4ae8ce.js"></script>
+        <script>
+            function handleHzInitialize() {
+                hz.entrypoints().setup({
+                    commands: {
+                        createRect: createRectHandler
+                    }
+                });
+            }
+            hz.onInitialize(handleHzInitialize);
+            function createRectHandler(execContext, selection, width, height) {
+                console.log("kolar: Core Handler " + JSON.stringify({width, height}));
+                const scene = hz.canvas;
+                const rect = scene.Rectangle.create();
+                scene.Rectangle.setFillColor(rect, 0xffff0000);
+                scene.Rectangle.setPositionAndSize(rect, {
+                    x: 100,
+                    y: 100,
+                    width,
+                    height
+                });
+            }
+        </script>
+
+        <script>
+            function createRectBtnClickHandler() {
+                let width = document.getElementById("width").value;
+                let height = document.getElementById("height").value;
+                width = parseInt(width) | 10;
+                heigh = parseInt(height) | 10;
+                console.log("craj: creaing rect " + JSON.stringify({width, height}));
+                hz.executeCommand("createRect", width, height);
+            }
+        </script>
+
+        <style>
+            body {
+                width: 100%;
+                height: 100%;
+                background-color: azure;
+            }
+            #container {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .inputEntryDiv {
+                display: flex;
+                flex-direction: row;
+            }
+
+            sp-button {
+                width: 100px;
+            }
+
+        </style>
+        <script
+            src="https://jspm.dev/@spectrum-web-components/bundle/elements.js"
+            type="module"
+        ></script>
+	</head>
+    <body>
+        <sp-theme scale="large" color="light">
+            <!-- Insert content requiring theme application here. -->
+            <div id="container">
+                <h2 class="spectrum-Heading spectrum-Heading--sizeM">Create Rectangle</h2>
+                <sp-divider size="l"></sp-divider>
+
+                <sp-field-label for="height">Width</sp-field-label>
+                <sp-textfield id="width" placeholder="0"></sp-textfield>
+
+                <sp-field-label for="height">Height</sp-field-label>
+                <sp-textfield id="height" placeholder="0"></sp-textfield>
+
+                <sp-button style="margin-top: 10px;" variant="cta" onclick="createRectBtnClickHandler()" size="m">Ok</sp-button>
+            </div>
+        
+            <!-- End content requiring theme application. -->
+        </sp-theme>
+    </body>
+</html>
+

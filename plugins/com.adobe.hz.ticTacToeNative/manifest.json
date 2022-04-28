@@ -1,0 +1,8 @@
+{
+    "name": "Native tic-tac-toe widget",
+    "id": "com.adobe.hz.ticTacToeNative",
+    "editorType": [
+        "canvas"
+    ],
+    "type": "native-widget"
+}

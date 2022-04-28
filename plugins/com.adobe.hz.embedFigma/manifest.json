@@ -1,0 +1,10 @@
+{
+    "name": "Embed Figma",
+    "id": "com.adobe.hz.embedFigma",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "widget"
+}

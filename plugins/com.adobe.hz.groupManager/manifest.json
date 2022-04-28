@@ -1,0 +1,11 @@
+{
+    "name": "Group manager",
+    "id": "com.adobe.hz.groupManager",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "panel",
+    "runtime": "QuickJS"
+}

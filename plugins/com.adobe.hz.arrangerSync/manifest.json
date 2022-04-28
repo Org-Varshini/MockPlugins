@@ -1,0 +1,11 @@
+{
+    "name": "Arranger",
+    "id": "com.adobe.hz.arrangerSync",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "panel",
+    "runtime": "PluginSDKSync"
+}

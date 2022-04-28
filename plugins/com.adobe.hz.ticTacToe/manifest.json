@@ -1,0 +1,11 @@
+{
+    "name": "Tic-tac-toe",
+    "id": "com.adobe.hz.ticTacToe",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "widget",
+    "icon": "tictactoe.png"
+}

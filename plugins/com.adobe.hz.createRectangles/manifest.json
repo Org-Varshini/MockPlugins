@@ -1,0 +1,11 @@
+{
+    "name": "Create Rectangles",
+    "id": "com.adobe.hz.createRectangles",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "panel",
+    "icon": "creative-cloud.png"
+}

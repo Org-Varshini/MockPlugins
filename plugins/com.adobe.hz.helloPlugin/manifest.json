@@ -1,0 +1,10 @@
+{
+    "name": "Hello Plugin",
+    "id": "com.adobe.hz.helloPlugin",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "panel"
+}

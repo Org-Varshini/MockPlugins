@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                padding: 5px;
+            }
+
+            button {
+                height: 30px;
+                padding-left: 10px;
+                padding-right: 14px;
+                border-radius: 15px;
+                border: none;
+                color: white;
+                cursor: pointer;
+                outline: none;
+            }
+
+            .buttonIcon {
+                padding-right: 8px;
+            }
+
+            .buttonContainer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            #approveButton {
+                background: #30b730;
+                display: none;
+            }
+
+            #revokeButton {
+                background: darkOrange;
+                display: none;
+            }
+
+            #rejectButton {
+                background: red;
+                display: none;
+            }
+
+            #requestButton {
+                background: #30b730;
+                display: none;
+            }
+
+            #time {
+                align-items: flex-end;
+            }
+
+            .flexContainer {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            #main {
+                width: 100%;
+            }
+
+            .flexRow {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .flexRowItem {
+                font-family: Whyte, sans-serif;
+            }
+        </style>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <script>
+            const nodeStatusMap = new Map(); 
+            let titleDiv, approveButton, rejectButton, revokeButton, requestButton, currentSelection;
+
+            function updateButtons() {
+                let visibleButtons = [];
+                if (currentSelection) {
+                    const status = nodeStatusMap.get(currentSelection) ?? 0;
+                    switch (status) {
+                        case 0:
+                            visibleButtons = [approveButton, rejectButton];
+                            break;
+                        case 1:
+                            visibleButtons = [revokeButton];
+                            break;
+                        case -1:
+                            visibleButtons = [requestButton];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                for (let button of [approveButton, rejectButton, revokeButton, requestButton]) {
+                    button.style.display = visibleButtons.indexOf(button) > -1 ? "inline-block" : "none";
+                }
+            }
+
+            window.addEventListener("message", event => {
+                const data = event.data;
+                switch (data.message) {
+                    case "selectionChanged":
+                        if (Array.isArray(data.data)) {
+                            currentSelection = null;
+                            updateButtons();
+                            let str;
+                            if (data.data.length === 0) {
+                                str = "Select an object to continue";
+                            } else if (data.data.length > 1) {
+                                str = "Select a single object to continue";
+                            } else {
+                                const id = data.data[0].id;
+                                str = id + ": " + data.data[0].type;
+                                currentSelection = id;
+                                let status = nodeStatusMap.get(id);
+                                if (status === undefined) {
+                                    nodeStatusMap.set(id, 0);
+                                    status = 0;
+                                }
+                                updateButtons();
+                            }
+                            titleDiv.innerHTML = str;
+                            updateIframeHeight();
+                        }
+                        break;
+                
+                    default:
+                        break;
+                }
+            });
+
+            window.onload = function () {
+                updateIframeHeight();
+                parent.postMessage({
+                    pluginMessage: {
+                        type: 'get-selection'
+                    }
+                }, "*");
+                titleDiv = document.getElementById("title");
+                approveButton = document.getElementById("approveButton");
+                rejectButton = document.getElementById("rejectButton");
+                revokeButton = document.getElementById("revokeButton");
+                requestButton = document.getElementById("requestButton");
+            };
+
+            function updateIframeHeight() {
+                const expectedHeight = window.document.getElementsByTagName("html")[0].getBoundingClientRect().height;
+                if (expectedHeight > 0) {
+                    parent.postMessage({
+                        pluginMessage: {
+                            type: 'updateWidgetSize',
+                            data: {
+                                size: { height: expectedHeight }
+                            }
+                        }
+                    }, "*");
+                }
+            }
+
+            function acceptSelection() {
+                nodeStatusMap.set(currentSelection, 1);
+                updateButtons();
+                parent.postMessage({
+                    pluginMessage: {
+                        type: 'add-sticker',
+                        data: {
+                            nodes: [currentSelection]
+                        }
+                    }
+                }, "*");
+            }
+
+            function rejectSelection() {
+                nodeStatusMap.set(currentSelection, -1);
+                updateButtons();
+            }
+
+            function revokeSelection() {
+                nodeStatusMap.set(currentSelection, 0);
+                updateButtons();
+            }
+
+            function requestSelection() {
+                nodeStatusMap.set(currentSelection, 0);
+                updateButtons();
+            }
+        </script>
+    </head>
+    <body>
+        <div id="main" class="flexContainer">
+            <div class="flexRow">
+                <div id="title" class="flexRowItem">Select an object to continue</div>
+            </div>
+            <div class="flexRow">
+                <div class="flexRowItem"></div>
+                <div class="buttonContainer">
+                    <button id="approveButton" class="btn" onclick="acceptSelection()"><i class="fa fa-check buttonIcon"></i>Approve</button>
+                    <button id="revokeButton" class="btn" onclick="revokeSelection()"><i class="fa fa-times buttonIcon"></i>Revoke</button>
+                    <button id="rejectButton" class="btn" onclick="rejectSelection()"><i class="fa fa-times buttonIcon"></i>Reject</button>
+                    <button id="requestButton" class="btn" onclick="requestSelection()"><i class="fa fa-repeat buttonIcon"></i>Re-request</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

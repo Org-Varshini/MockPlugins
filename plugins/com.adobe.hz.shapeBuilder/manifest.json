@@ -1,0 +1,11 @@
+{
+    "name": "Shape Builder",
+    "id": "com.adobe.hz.shapeBuilder",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "content",
+    "runtime": "PluginSDKSync"
+}

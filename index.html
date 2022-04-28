@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Published Apps</title>
+    <style>
+      @import url("https://use.typekit.net/zbt0nbc.css");
+      * {
+        font-family: basco-std, serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+      body {
+        margin: 40pt;
+        padding: 20pt;
+      }
+      hr {
+        border-bottom: 0 none;
+        border-top: 1px solid #154c79;
+      }
+      a {
+        color: #900;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Published Apps ...</h2>
+    <hr />
+    <ul id="apps"></ul>
+    <script>
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          const response = JSON.parse(xhttp.responseText);
+          if (!response) {
+            return;
+          }
+
+          const pluginManifests = response.pluginManifests;
+          if (!pluginManifests || pluginManifests.length === 0) {
+            return;
+          }
+
+          const appList = document.getElementById("apps");
+          pluginManifests.forEach((plugin) => {
+            const appItem = document.createElement("li");
+            appItem.innerHTML = `<h3><a href="/api/pluginManifests/${plugin.id}">${plugin.name}</a></h3>`;
+            appList.append(appItem);
+          });
+        }
+      };
+      xhttp.open("GET", "/api/pluginManifests", true);
+      xhttp.send();
+    </script>
+  </body>
+</html>

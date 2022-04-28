@@ -1,0 +1,6 @@
+{
+    "name": "Arrange (async)",
+    "id": "com.adobe.hz.arrangerAsync",
+    "main": "arrange.js",
+    "type": "managed-ui"
+}

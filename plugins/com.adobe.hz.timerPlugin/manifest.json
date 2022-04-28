@@ -1,0 +1,14 @@
+{
+    "name": "Timer Widget",
+    "id": "com.adobe.hz.timerPlugin",
+    "main": "code.js",
+    "editorType": [
+        "canvas"
+    ],
+    "ui": "ui.html",
+    "type": "widget",
+    "icon": {
+        "light": "icon-light.svg",
+        "dark": "icon-dark.svg"
+    }
+}
