@@ -22,7 +22,6 @@ import process from "process";
 import { readFileSync } from "fs";
 import * as path from "path";
 // import https from "https";
-import https from "http";
 
 import express from "express";
 import cors from "cors";
@@ -43,32 +42,32 @@ const API_PORT = Number(process.env.API_PORT);
 const DIST_DIRECTORY = "dist";
 const APPS_DIRECTORY = "plugins";
 const SDK_DIRECTORY = "sdk";
-const SSL_DIRECTORY = "ssl";
+// const SSL_DIRECTORY = "ssl";
 
 const {
   rootDirectory,
   distDirectory,
   appsDirectory,
   distAppsDirectory,
-  sslDirectory,
+  // sslDirectory,
 } = getDirectories();
 
-const key = readFileSync(path.join(sslDirectory, "key.pem"), "utf8");
-const cert = readFileSync(path.join(sslDirectory, "cert.pem"), "utf8");
+// const key = readFileSync(path.join(sslDirectory, "key.pem"), "utf8");
+// const cert = readFileSync(path.join(sslDirectory, "cert.pem"), "utf8");
 
 function getDirectories() {
   const rootDirectory = process.cwd();
   const distDirectory = path.join(rootDirectory, DIST_DIRECTORY);
   const appsDirectory = path.join(rootDirectory, APPS_DIRECTORY);
   const distAppsDirectory = path.join(distDirectory, APPS_DIRECTORY);
-  const sslDirectory = path.join(rootDirectory, SSL_DIRECTORY);
+  // const sslDirectory = path.join(rootDirectory, SSL_DIRECTORY);
 
   return {
     rootDirectory,
     distDirectory,
     appsDirectory,
     distAppsDirectory,
-    sslDirectory,
+    // sslDirectory,
   };
 }
 
@@ -91,11 +90,11 @@ function startApiServer() {
   sdkController.sdkDirectory = path.join(rootDirectory, SDK_DIRECTORY);
   sdkController.register(app);
 
-  const secureApiServer = https.createServer({ key, cert }, app);
-  secureApiServer.listen(process.env.PORT || API_PORT);
+  // const secureApiServer = https.createServer({ key, cert }, app);
+  // secureApiServer.listen(process.env.PORT || API_PORT);
   // secureApiServer.listen(API_PORT, API_HOST_NAME);
 
-  console.log(`API URL: ${API_PROTOCOL}://${API_HOST_NAME}:${API_PORT}`);
+  // console.log(`API URL: ${API_PROTOCOL}://${API_HOST_NAME}:${API_PORT}`);
 }
 
 startApiServer();
