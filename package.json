@@ -6,7 +6,6 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc && cp -R ./index.html dist && node dist/index.js",
     "start": "tsc && cp -R ./index.html dist && node .",
     "watch": "nodemon --ignore node_modules/ --ignore dist/ --exec \"npm start\""
   },
