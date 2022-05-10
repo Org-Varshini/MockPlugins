@@ -91,7 +91,8 @@ function startApiServer() {
   sdkController.register(app);
 
   const secureApiServer = https.createServer({ key, cert }, app);
-  secureApiServer.listen(API_PORT, API_HOST_NAME);
+  secureApiServer.listen(process.env.PORT || API_PORT);
+  // secureApiServer.listen(API_PORT, API_HOST_NAME);
 
   console.log(`API URL: ${API_PROTOCOL}://${API_HOST_NAME}:${API_PORT}`);
 }
