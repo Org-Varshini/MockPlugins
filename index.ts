@@ -19,7 +19,7 @@
 import "dotenv/config";
 import process from "process";
 
-import { readFileSync } from "fs";
+// import { readFileSync } from "fs";
 import * as path from "path";
 // import https from "https";
 
@@ -35,9 +35,9 @@ process.on("uncaughtException", (error) => {
   console.error("Uncaught error", error);
 });
 
-const API_PROTOCOL = "https";
-const API_HOST_NAME = process.env.API_HOST_NAME;
-const API_PORT = Number(process.env.API_PORT);
+// const API_PROTOCOL = "https";
+// const API_HOST_NAME = process.env.API_HOST_NAME;
+// const API_PORT = Number(process.env.API_PORT);
 
 const DIST_DIRECTORY = "dist";
 const APPS_DIRECTORY = "plugins";
