@@ -90,6 +90,10 @@ function startApiServer() {
   sdkController.sdkDirectory = path.join(rootDirectory, SDK_DIRECTORY);
   sdkController.register(app);
 
+  var port = process.env.PORT || 9000;
+  app.listen(port, () => {
+      console.log("Server is up on port - " + port);
+  });
   // const secureApiServer = https.createServer({ key, cert }, app);
   // secureApiServer.listen(process.env.PORT || API_PORT);
   // secureApiServer.listen(API_PORT, API_HOST_NAME);
