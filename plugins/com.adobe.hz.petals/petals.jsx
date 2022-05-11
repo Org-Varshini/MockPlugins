@@ -6,7 +6,7 @@
 /* global hz: readonly -- Declared by the async.ts plugin runtime */
 
 let colorRGBA = "#73218ccc";
-let numPetals = 9;
+let numPetals = 15;
 let centerDiameter = 110;
 let minOuterDiameter = centerDiameter + 1;
 let outerDiameter = 278;
